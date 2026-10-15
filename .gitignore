@@ -44,5 +44,3 @@ next-env.d.ts
 # MapLibre のワーカー（scripts/copy-maplibre-worker.mjs がビルド時にコピーする）
 /public/maplibre/
 
-# MapLibre のワーカー（scripts/copy-maplibre-worker.mjs がビルド時にコピーする）
-/public/maplibre/

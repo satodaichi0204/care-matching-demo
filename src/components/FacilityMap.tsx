@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import {
+  LngLatBounds,
   Map as MapLibreMap,
   NavigationControl,
   Popup,
@@ -42,6 +43,8 @@ type Props = {
   onSelect?: (id: string | null) => void;
   /** 施設の詳細ページの小窓用。操作をしぼる */
   compact?: boolean;
+  /** 最初に施設が届いたとき、すべてが収まるように表示する */
+  fitToPoints?: boolean;
 };
 
 const EMPTY: GeoJSON.FeatureCollection = { type: "FeatureCollection", features: [] };
@@ -97,7 +100,16 @@ function popupContent(popup: MapPoint["popup"]): HTMLElement {
   return root;
 }
 
-export default function FacilityMap({ points, center, zoom, userLocation, selectedId, onSelect, compact }: Props) {
+export default function FacilityMap({
+  points,
+  center,
+  zoom,
+  userLocation,
+  selectedId,
+  onSelect,
+  compact,
+  fitToPoints,
+}: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MapLibreMap | null>(null);
   const popupRef = useRef<Popup | null>(null);
@@ -225,6 +237,16 @@ export default function FacilityMap({ points, center, zoom, userLocation, select
     if (!loaded) return;
     (mapRef.current?.getSource("stores") as GeoJSONSource | undefined)?.setData(toGeoJson(points, selectedId));
   }, [loaded, points, selectedId]);
+
+  // 最初に施設が届いたとき、すべての施設が収まるように表示する
+  const fittedRef = useRef(false);
+  useEffect(() => {
+    if (!loaded || !fitToPoints || fittedRef.current || points.length === 0) return;
+    fittedRef.current = true;
+    const bounds = new LngLatBounds();
+    for (const p of points) bounds.extend([p.lng, p.lat]);
+    mapRef.current?.fitBounds(bounds, { padding: 56, maxZoom: 13, duration: 0 });
+  }, [loaded, fitToPoints, points]);
 
   useEffect(() => {
     if (!loaded) return;

@@ -12,14 +12,14 @@ export default function SiteHeader() {
   return (
     <header className="z-30 shrink-0 border-b border-slate-200 bg-white/95 backdrop-blur">
       <div className="flex h-14 items-center justify-between gap-3 px-4">
-        <Link href="/" className="flex items-center gap-2.5">
+        <Link href="/" className="flex shrink-0 items-center gap-2">
           <span className="grid h-8 w-8 place-items-center rounded-lg bg-teal-600 text-white shadow-sm shadow-teal-600/30">
             <svg viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="currentColor" aria-hidden>
               <path d="M12 21.2c-.3 0-.6-.1-.8-.3C7 17.4 3 14 3 9.6 3 6.9 5.1 4.8 7.7 4.8c1.7 0 3.2.9 4.3 2.3 1.1-1.4 2.6-2.3 4.3-2.3 2.6 0 4.7 2.1 4.7 4.8 0 4.4-4 7.8-8.2 11.3-.2.2-.5.3-.8.3Z" />
             </svg>
           </span>
-          <span className="text-[15px] font-bold tracking-tight text-slate-900">ケアマッチ</span>
-          <span className="rounded-md bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-amber-800">
+          <span className="whitespace-nowrap text-[15px] font-bold tracking-tight text-slate-900">ケアマッチ</span>
+          <span className="hidden rounded-md bg-amber-100 px-1.5 py-0.5 text-[10px] font-bold tracking-wider text-amber-800 sm:inline">
             DEMO
           </span>
         </Link>
@@ -42,7 +42,7 @@ function Nav({ pathname }: { pathname: string }) {
     <Link
       href={href}
       aria-current={active ? "page" : undefined}
-      className={`rounded-lg px-2.5 py-1.5 font-medium transition ${
+      className={`whitespace-nowrap rounded-lg px-2.5 py-1.5 font-medium transition ${
         active ? "bg-teal-50 text-teal-700" : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
       } ${className}`}
     >

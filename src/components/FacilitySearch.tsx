@@ -277,7 +277,13 @@ export default function FacilitySearch() {
       <section
         className={`relative h-[calc(100dvh-3.5rem)] md:col-start-2 md:h-auto xl:col-start-3 ${view === "map" ? "" : "hidden xl:block"}`}
       >
-        <FacilityMap points={points} center={DEFAULT_CENTER} selectedId={selectedId} onSelect={setSelectedId} />
+        <FacilityMap
+          points={points}
+          center={DEFAULT_CENTER}
+          selectedId={selectedId}
+          onSelect={setSelectedId}
+          fitToPoints
+        />
         <div className="pointer-events-none absolute bottom-8 left-3 z-10 flex items-center gap-3 rounded-full bg-white/95 px-3 py-1.5 text-xs text-slate-700 shadow-md ring-1 ring-slate-900/5">
           <span className="inline-flex items-center gap-1.5">
             <span className="h-2.5 w-2.5 rounded-full" style={{ background: COLORS.vacancy }} />
